@@ -3,6 +3,8 @@ package pl.edu.uj.tcs.memoizer.plugins;
 import java.awt.*;
 import java.util.*;
 
+import pl.edu.uj.tcs.memoizer.serialization.StateObject;
+
 /*
  * Interface implemented by every plugin factory
  * @author pmikos (sokar92)
@@ -23,6 +25,6 @@ public interface IPluginFactory {
 	 * Creates new instance od plugin
 	 * with specified initial state
 	 */
-	public IPlugin newInstance(Map<String, byte[]> pluginStateMap);
+	public IPlugin newInstance(StateObject pluginStateMap);
 	
 }
