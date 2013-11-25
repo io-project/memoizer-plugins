@@ -16,6 +16,6 @@ public interface IPlugin {
 	 */
 	public StateObject getState();
 	
-	public String getName();
+	public String getServiceName();
 
 }

@@ -1,7 +1,7 @@
 package pl.edu.uj.tcs.memoizer.plugins;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Image;
+import java.util.List;
 
 import pl.edu.uj.tcs.memoizer.serialization.StateObject;
 
@@ -14,7 +14,7 @@ public interface IPluginFactory {
 	/*
 	 * Returns plugin description for ex. DemotywatoryDownloadPlugin
 	 */
-	public String getPluginName();
+	public String getServiceName();
 	
 	/*
 	 * Returns icon related to given plugin 
@@ -22,9 +22,14 @@ public interface IPluginFactory {
 	public Image getIcon();
 	
 	/*
-	 * Creates new instance od plugin
-	 * with specified initial state
+	 * Creates new instance of downloading plugin  with specified initial state
+	 * for a particular type of view
 	 */
-	public IPlugin newInstance(StateObject pluginStateMap);
+	public IDownloadPlugin newInstance(StateObject pluginState, EViewType viewType);
+	
+	/*
+	 * Returns list of views implemented by downloading plugins provided by this factory
+	 */
+	public List<EViewType> getAvailableDownloadViews();
 	
 }

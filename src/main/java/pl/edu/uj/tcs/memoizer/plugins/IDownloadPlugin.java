@@ -9,14 +9,9 @@ import java.util.List;
 public interface IDownloadPlugin extends IPlugin {
 	
 	/*
-	 * Returns list of views implemented by plugin
+	 * Gets view as plugin work mode
 	 */
-	public List<EViewType> getAvailableViews();
-	
-	/*
-	 * Set view as plugin work mode
-	 */
-	public void setView(EViewType viewType);
+	public void getView(EViewType viewType);
 	
 	/*
 	 * Check if there is next meme to return
