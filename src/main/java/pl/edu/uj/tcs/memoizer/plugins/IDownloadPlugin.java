@@ -11,7 +11,7 @@ public interface IDownloadPlugin extends IPlugin {
 	/*
 	 * Gets view as plugin work mode
 	 */
-	public void getView();
+	public EViewType getView();
 	
 	/*
 	 * Check if there is next meme to return
