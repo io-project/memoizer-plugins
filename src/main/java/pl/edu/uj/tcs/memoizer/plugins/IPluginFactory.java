@@ -11,24 +11,27 @@ import pl.edu.uj.tcs.memoizer.serialization.StateObject;
  */
 public interface IPluginFactory {
 	
-	/*
-	 * Returns plugin description for ex. DemotywatoryDownloadPlugin
+	/**
+	 * @return plugin description for ex. DemotywatoryDownloadPlugin
 	 */
 	public String getServiceName();
 	
-	/*
-	 * Returns icon related to given plugin 
+	/**
+	 * @return icon related to given plugin 
 	 */
 	public Image getIcon();
 	
-	/*
+	/**
 	 * Creates new instance of downloading plugin  with specified initial state
 	 * for a particular type of view
+	 * 
+	 * @return new instance of IDownloadPlugin or 
+	 * @throws IllegalArgumentException when viewType is not implemeted by this plugin
 	 */
-	public IDownloadPlugin newInstance(StateObject pluginState, EViewType viewType);
+	public IDownloadPlugin newInstance(StateObject pluginState, EViewType viewType) throws InvalidViewException;
 	
-	/*
-	 * Returns list of views implemented by downloading plugins provided by this factory
+	/**
+	 * @return list of views implemented by downloading plugins provided by this factory
 	 */
 	public List<EViewType> getAvailableDownloadViews();
 	
