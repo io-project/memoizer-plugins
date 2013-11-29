@@ -13,5 +13,5 @@ public interface IStateObject {
 	
 	JSONObject getJSON();
 	
-	public void serialize(IStateSink sink);
+	public void serialize(IStateSink sink) throws SerializationException;
 }
