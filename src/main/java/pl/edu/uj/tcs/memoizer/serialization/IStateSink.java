@@ -8,5 +8,5 @@ public interface IStateSink {
 	 * Saves object represented by string
 	 * @param object
 	 */
-	void saveData(String object);
+	void saveData(String object) throws SerializationException;
 }
