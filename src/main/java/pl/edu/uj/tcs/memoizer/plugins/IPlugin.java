@@ -1,9 +1,6 @@
 package pl.edu.uj.tcs.memoizer.plugins;
 
-import java.awt.*;
-import java.util.*;
-
-import pl.edu.uj.tcs.memoizer.serialization.StateObject;
+import pl.edu.uj.tcs.memoizer.serialization.IStateObject;
 
 /*
  * Interface required to implement by plugins
@@ -14,7 +11,7 @@ public interface IPlugin {
 	/*
 	 * Returns plugin state
 	 */
-	public StateObject getState();
+	public IStateObject getState();
 	
 	public String getServiceName();
 
