@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-import org.apache.commons.io.IOUtils;
-
 import net.sf.json.JSONObject;
 
 
@@ -19,19 +17,23 @@ public class StateObject {
 		jo = JSONObject.fromObject(object);
 	}
 	
+	public StateObject(JSONObject jo) {
+		this.jo = jo;
+	}
+	
 	public StateObject() {
 		jo = new JSONObject();
 	}
 	
-	public static StateObject fromStream(InputStream is) throws IOException {
-		return new StateObject(IOUtils.toString(is));
+	public static StateObject fromSource(IStateSource source) throws IOException {
+		return new StateObject(source.getData());
 	}
 	
 	public JSONObject getJSON() {
 		return jo;
 	}
 	
-	public void serialize(OutputStream os) throws IOException {
-		os.write(jo.toString().getBytes());
+	public void serialize(IStateSink sink) throws IOException {
+		sink.saveData(jo.toString());
 	}
 }
