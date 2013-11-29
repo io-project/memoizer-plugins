@@ -1,16 +1,19 @@
 package pl.edu.uj.tcs.memoizer.plugins.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import pl.edu.uj.tcs.memoizer.plugins.Meme;
-import pl.edu.uj.tcs.memoizer.serialization.StateObject;
+import pl.edu.uj.tcs.memoizer.serialization.IStateObject;
 
 public abstract class MemeBuffer implements IMemeBuffer {
 	
 	private Queue<Meme> _queue = new LinkedList<Meme>();
-	protected StateObject _state = null;
+	protected IStateObject _state = null;
 	
-	public MemeBuffer(StateObject state){
+	public MemeBuffer(IStateObject state){
 		_state = state;
 	}
 	
