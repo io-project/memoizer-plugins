@@ -30,6 +30,7 @@ public interface IPluginFactory {
 	 */
 	public IDownloadPlugin newInstance(IStateObject pluginState, EViewType viewType) throws InvalidViewException;
 	
+	public IDownloadPlugin newInstance(IStateObject pluginState, EViewType viewType, Object parameters) throws InvalidViewException;
 	/**
 	 * @return list of views implemented by downloading plugins provided by this factory
 	 */
