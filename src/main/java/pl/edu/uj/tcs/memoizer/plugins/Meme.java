@@ -1,7 +1,10 @@
 package pl.edu.uj.tcs.memoizer.plugins;
 
 import java.net.*;
+import java.nio.file.Path;
 import java.awt.Image;
+
+import org.apache.commons.io.FilenameUtils;
 
 /*
  * Describes Meme
@@ -24,32 +27,37 @@ public class Meme {
 	private Image _image;
 	
 	//owner
-	private IPlugin _owner;
+	//private IPlugin _owner;
+	private IPluginFactory _pluginFactory;
 	
 	//viewType
 	private EViewType _viewType;
 	
-	/*
+	//Meme identification
+	private Integer _id;
+	
+	
+	
+	/**
 	 * Instantiates new Meme linked to given owner
 	 */
-	public Meme(IPlugin owner, Meme meme){
+	public Meme(IPluginFactory pluginFactory, Meme meme){
 		this(meme.getImageLink(), meme.getPageLink(),
 				meme.getTitle(), meme.getDescription(),
 				meme.getWidth(), meme.getHeight(),
-				meme.getImage(), meme.getViewType(), meme.getOwner());
-		_owner = owner;
+				meme.getImage(), meme.getViewType(), meme.getPluginFactory());
+		_pluginFactory = pluginFactory;
 	}
 	
-	/*
+	/**
 	 * Instantiates new Meme linked to specific URL
 	 * with given title, description and size
 	 */
 	public Meme(URL imageUrl, URL pageUrl, 
 			String title, String description, 
 			int width, int heigth,
-			Image image, EViewType viewType, IPlugin owner)
+			Image image, EViewType viewType, IPluginFactory pluginFactory)
 	{
-		_owner = null;
 		_imageLink = imageUrl;
 		_pageLink = pageUrl;
 		_title = title == null ? "" : title;
@@ -57,8 +65,8 @@ public class Meme {
 		_width = width;
 		_heigth = heigth;
 		_image = image;
-		_owner = owner;
 		_viewType = viewType;
+		_pluginFactory = pluginFactory;
 	}
 	
 	@Override
@@ -73,15 +81,7 @@ public class Meme {
 		if(_imageLink == null) return 0;
 		return _imageLink.hashCode();
 	}
-	
-	/*
-	 * Returns meme owner - plugin
-	 * which generated this meme
-	 */
-	public IPlugin getOwner(){
-		return _owner;
-	}
-	
+
 	/*
 	 * Returns URL to image linked with Meme
 	 */
@@ -141,8 +141,13 @@ public class Meme {
 		_image = img;
 	}
 	
-	public void setOwner(IPlugin owner) {
-		_owner = owner;
+	/**
+	 * Setter for pluginFactory field. This method take effects only once!!!
+	 * @param pluginFactory
+	 */
+	public void setPluginFactory(IPluginFactory pluginFactory) {
+		if(_pluginFactory==null)
+		_pluginFactory = pluginFactory;
 	}
 	
 	/*
@@ -151,4 +156,37 @@ public class Meme {
 	public EViewType getViewType() {
 		return _viewType;
 	}
+	
+	public IPluginFactory getPluginFactory(){
+		return this._pluginFactory;
+	}
+	
+	/**
+	 * Return suggested file name when meme is saving on disk.
+	 * @return
+	 * @author pkubiak
+	 */
+	public String getSuggestedFileName(){
+		String fileName = "";
+		if(this._pluginFactory!=null)//append service name
+			fileName += this._pluginFactory.getServiceName().toLowerCase();
+		
+		if(this._id!=null)//append id
+			fileName += (fileName.length()>0?"-":"")+this._id.toString();
+		
+		if(this._title!=null)
+			fileName += (fileName.length()>0?"-":"")+this._title.replaceAll("[^ a-zA-Z0-9]+","-")+"-";
+		
+		fileName += '.'+FilenameUtils.getExtension(this._imageLink.toString());
+		
+		return fileName;
+	}
+
+	/**
+	 * 
+	 */
+	public int getId(){
+		return this._id;
+	}
 }
+
