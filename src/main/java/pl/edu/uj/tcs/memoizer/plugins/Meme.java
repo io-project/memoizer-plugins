@@ -28,10 +28,10 @@ public class Meme {
 	
 	//owner
 	//private IPlugin _owner;
-	private IPluginFactory _pluginFactory;
+	private String _serviceName;
 	
 	//viewType
-	private EViewType _viewType;
+	//private EViewType _viewType;
 	
 	//Meme identification
 	private Integer _id;
@@ -45,8 +45,7 @@ public class Meme {
 		this(meme.getImageLink(), meme.getPageLink(),
 				meme.getTitle(), meme.getDescription(),
 				meme.getWidth(), meme.getHeight(),
-				meme.getImage(), meme.getViewType(), meme.getPluginFactory());
-		_pluginFactory = pluginFactory;
+				meme.getImage(),  pluginFactory);
 	}
 	
 	/**
@@ -56,7 +55,7 @@ public class Meme {
 	public Meme(URL imageUrl, URL pageUrl, 
 			String title, String description, 
 			int width, int heigth,
-			Image image, EViewType viewType, IPluginFactory pluginFactory)
+			Image image, IPluginFactory pluginFactory)
 	{
 		_imageLink = imageUrl;
 		_pageLink = pageUrl;
@@ -65,8 +64,8 @@ public class Meme {
 		_width = width;
 		_heigth = heigth;
 		_image = image;
-		_viewType = viewType;
-		_pluginFactory = pluginFactory;
+		if(pluginFactory!=null)
+			_serviceName = pluginFactory.getServiceName();
 	}
 	
 	@Override
@@ -150,8 +149,8 @@ public class Meme {
 	 * @param pluginFactory
 	 */
 	public void setPluginFactory(IPluginFactory pluginFactory) {
-		if(_pluginFactory==null)
-		_pluginFactory = pluginFactory;
+		if(_serviceName==null)
+			_serviceName = pluginFactory.getServiceName();
 	}
 	
 	public void setId(Integer id){
@@ -162,12 +161,17 @@ public class Meme {
 	/*
 	 * Returns type of view 
 	 */
-	public EViewType getViewType() {
-		return _viewType;
+//	public EViewType getViewType() {
+//		return _viewType;
+//	}
+	
+	public String getServiceName(){
+		return this._serviceName;
 	}
 	
-	public IPluginFactory getPluginFactory(){
-		return this._pluginFactory;
+	public void setServiceName(String serviceName){
+		if(this._serviceName==null)
+			this._serviceName = serviceName;
 	}
 	
 	/**
@@ -177,8 +181,8 @@ public class Meme {
 	 */
 	public String getSuggestedFileName(){
 		String fileName = "";
-		if(this._pluginFactory!=null)//append service name
-			fileName += this._pluginFactory.getServiceName().toLowerCase();
+		if(this._serviceName!=null)//append service name
+			fileName += this._serviceName.toLowerCase();
 		
 		if(this._id!=null)//append id
 			fileName += (fileName.length()>0?"-":"")+this._id.toString();
