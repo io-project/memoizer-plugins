@@ -134,6 +134,10 @@ public class Meme {
 		return _image;
 	}
 	
+	public Integer getId(){
+		return _id;
+	}
+	
 	/*
 	 * Sets downloaded image
 	 */
@@ -148,6 +152,11 @@ public class Meme {
 	public void setPluginFactory(IPluginFactory pluginFactory) {
 		if(_pluginFactory==null)
 		_pluginFactory = pluginFactory;
+	}
+	
+	public void setId(Integer id){
+		if(_id==null)
+			_id = id;		
 	}
 	
 	/*
@@ -174,19 +183,22 @@ public class Meme {
 		if(this._id!=null)//append id
 			fileName += (fileName.length()>0?"-":"")+this._id.toString();
 		
-		if(this._title!=null)
-			fileName += (fileName.length()>0?"-":"")+this._title.replaceAll("[^ a-zA-Z0-9]+","-")+"-";
+		if(this._title!=null){//append title
+			String inT = "ęóąśłżźćńĘÓĄŚŁŻŹĆŃ", outT = "eoaslzzcneoaslzzcn";
+			String name = this._title;
+			for(int i=0;i<inT.length();i++)
+				name = name.replace(inT.charAt(i), outT.charAt(i));
+			name = name.toLowerCase().trim().replaceAll("[^a-zA-Z0-9]+","-");
+			
+			System.out.println(name);
+			
+			fileName += (fileName.length()>0?"-":"")+name;
+		
+		}
 		
 		fileName += '.'+FilenameUtils.getExtension(this._imageLink.toString());
 		
 		return fileName;
-	}
-
-	/**
-	 * 
-	 */
-	public int getId(){
-		return this._id;
 	}
 }
 
