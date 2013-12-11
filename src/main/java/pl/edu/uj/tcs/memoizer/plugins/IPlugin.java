@@ -11,7 +11,7 @@ public interface IPlugin {
 	/*
 	 * Returns plugin state
 	 */
-	public IStateObject getState();
+	public IStateObject getState();  // FIXME Potrzebne to w ogóle do czego?
 	
 	public String getServiceName();
 

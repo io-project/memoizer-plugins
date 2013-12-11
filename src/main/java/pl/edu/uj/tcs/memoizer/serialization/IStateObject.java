@@ -8,7 +8,9 @@ import java.io.PrintWriter;
 
 import net.sf.json.JSONObject;
 
-
+/**
+ * Prawdopodobnie służy do odzyskiwania wcześniej zapisanych String-ów.
+ */
 public interface IStateObject {
 	
 	JSONObject getJSON();
